@@ -12,13 +12,19 @@ EXPOSE 5000
 EXPOSE 22
 
 # Setup an app user so the container doesn't run as the root user
-RUN useradd dev
-USER dev
+# RUN useradd dev
 
 # Setup ssh
+RUN echo 'root:root' | chpasswd
 RUN mkdir /var/run/sshd
-RUN echo 'dev:dev' | chpasswd -c MD5
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
-RUN /usr/sbin/sshd -D
+# RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
+
+# Generate SSH host keys (ADD THIS)
+# RUN ssh-keygen -A
+
+# Switch User
+# USER dev
+
+CMD ["/usr/sbin/sshd", "-D"]

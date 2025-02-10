@@ -5,11 +5,10 @@ WORKDIR /usr/local/dev
 # COPY requirements.txt ./
 # RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update && apt-get install -y openssh-server git
-RUN wget -O- https://aka.ms/install-vscode-server/setup.sh | sh
 
 # Copy in the source code
 # COPY src ./src
-EXPOSE 5000
+# EXPOSE 5000
 EXPOSE 22
 
 # Setup an app user so the container doesn't run as the root user

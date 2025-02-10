@@ -4,7 +4,8 @@ WORKDIR /usr/local/dev
 # Install the application dependencies
 # COPY requirements.txt ./
 # RUN pip install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get update && apt-get install -y openssh-server git
+RUN wget -O- https://aka.ms/install-vscode-server/setup.sh | sh
 
 # Copy in the source code
 # COPY src ./src

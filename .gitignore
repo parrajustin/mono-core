@@ -63,3 +63,4 @@ bazel-bin
 bazel-core
 bazel-out
 bazel-testlogs
+bazel-mono-core

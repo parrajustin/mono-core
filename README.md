@@ -3,8 +3,10 @@
 ## Getting started
 
 
-## Git Usage
+## Install packages
 
-To pull from git run the following
+Install using the bazel managed pnpm package manager.
 
+```
+bazel run -- @pnpm//:pnpm --dir $PWD install
 ```

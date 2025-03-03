@@ -4,7 +4,7 @@ import { ConvertToUnknownError } from "./utils";
 import { ErrorCode, StatusError } from "./status_error";
 
 /**
- * 
+ * Wraps a function that may possibly throw an error in a `Result`.
  * @param func function that may throw an error
  * @param textForUnknown Text for when an unknown error comes up.
  * @param mutators Makes changes to the error.

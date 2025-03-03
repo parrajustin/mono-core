@@ -50,3 +50,4 @@ common --enable_bzlmod
 # build --bes_backend=grpc://192.168.1.72:1985
 # build --remote_cache=grpc://192.168.1.72:1985
 # build --remote_timeout=3600
+common --@aspect_rules_ts//ts:default_to_tsc_transpiler

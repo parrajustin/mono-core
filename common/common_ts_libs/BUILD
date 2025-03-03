@@ -1,5 +1,6 @@
 load("//tools/typescript:ts_lib.bzl", "ts_lib")
 load("//tools/typescript:ts_test.bzl", "ts_test")
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -103,4 +104,20 @@ ts_test(
         ":wrap_to_result",
         ":status_error",
     ]
+)
+
+# Package for npm
+esbuild(
+    name = "common_ts_libs_package",
+    srcs = ["index.js"],
+    entry_points = ["index.js"],
+    deps = [":common_ts_libs"],
+    splitting = False,
+    config = {
+        "format": "cjs",
+        "target": "es2020",
+        "logLevel": "info",
+        "minify": True,
+        "bundle": True,
+    }
 )

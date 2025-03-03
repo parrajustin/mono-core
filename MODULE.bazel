@@ -1,11 +1,12 @@
 "Bazel dependencies"
+
 bazel_dep(name = "aspect_rules_lint", version = "1.0.8")
 bazel_dep(name = "aspect_bazel_lib", version = "2.7.7")
 bazel_dep(name = "aspect_rules_js", version = "2.2.0")
 bazel_dep(name = "aspect_rules_swc", version = "2.3.0")
 bazel_dep(name = "aspect_rules_ts", version = "3.5.0")
 bazel_dep(name = "rules_buf", version = "0.3.0")
-bazel_dep(name = "bazel_skylib", version = "1.4.2")
+bazel_dep(name = "bazel_skylib", version = "1.5.0")
 bazel_dep(name = "toolchains_llvm", version = "0.10.3")
 bazel_dep(name = "toolchains_protoc", version = "0.3.0")
 bazel_dep(name = "rules_java", version = "8.5.0")
@@ -18,12 +19,39 @@ bazel_dep(name = "buildifier_prebuilt", version = "6.3.3")
 bazel_dep(name = "platforms", version = "0.0.8")
 bazel_dep(name = "rules_kotlin", version = "1.9.0")
 bazel_dep(name = "rules_cc", version = "0.0.9")
+
+####### Node.js version #########
+# By default you get the node version from DEFAULT_NODE_VERSION in @rules_nodejs//nodejs:repositories.bzl
+# Optionally you can pin a different node version:
+bazel_dep(name = "rules_nodejs", version = "0.0.0")
+local_path_override(
+    module_name = "rules_nodejs",
+    path = "third_party/rules_nodejs",
+)
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+node.toolchain(node_version = "22.14.0")
+#################################
+
+bazel_dep(name = "aspect_rules_esbuild", version = "0.0.0", dev_dependency = True)
+local_path_override(
+    module_name = "aspect_rules_esbuild",
+    path = "third_party/rules_esbuild",
+)
+esbuild = use_extension("@aspect_rules_esbuild//esbuild:extensions.bzl", "esbuild")
+esbuild.toolchain(
+    name = "esbuild",
+    esbuild_version = "0.24.0",
+)
+use_repo(esbuild, "esbuild_toolchains")
+
+register_toolchains("@esbuild_toolchains//:all")
 # Add third_party rules for the single contained TS libs.
 # bazel_dep(name = "rules_multi_tsc", version = "0.0.0")
 # local_path_override(
 #     module_name = "rules_multi_tsc",
 #     path = "./third_party/rules_multi_tsc/rules/",
 # )
+
 
 rules_ts_ext = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext")
 rules_ts_ext.deps()

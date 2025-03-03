@@ -46,8 +46,10 @@ common --incompatible_strict_action_env
 common --enable_bzlmod
 
 # # Enable Buildbuddy
-# build --bes_results_url=http://192.168.1.72:8085/invocation/
-# build --bes_backend=grpc://192.168.1.72:1985
-# build --remote_cache=grpc://192.168.1.72:1985
-# build --remote_timeout=3600
+build --bes_results_url=http://192.168.1.72:8085/invocation/
+build --bes_backend=grpc://192.168.1.72:1985
+build --remote_cache=grpc://192.168.1.72:1985
+build --remote_timeout=3600
+
+# Add default TSC compiler for typescript.
 common --@aspect_rules_ts//ts:default_to_tsc_transpiler

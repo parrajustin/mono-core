@@ -671,8 +671,8 @@
     },
     "@@aspect_rules_js~//npm:extensions.bzl%pnpm": {
       "general": {
-        "bzlTransitiveDigest": "h8Xs6nt7/kOi8Go2BCcTiQAsoGCvJ1M8yKDdWOfyCK4=",
-        "usagesDigest": "pe5gUk3HvuMJKKyTXgZBlaaORGpNMokuHKbZgKTdyrI=",
+        "bzlTransitiveDigest": "gbFdf4IuYVgTGHQzy8U40n6zBe4OUCS2RzfpGi3gTdQ=",
+        "usagesDigest": "Ptcn87cAu+HTu7/kaj4K+yl+3UZ55dWaSCLhLOuyqmE=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -726,7 +726,8 @@
               "package_visibility": [
                 "//visibility:public"
               ],
-              "replace_package": ""
+              "replace_package": "",
+              "exclude_package_contents": []
             }
           }
         },

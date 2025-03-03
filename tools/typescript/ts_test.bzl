@@ -47,7 +47,7 @@ def _ts_test_impl(ctx):
         testing.ExecutionInfo(env),
     ]
 
-ts_test = rule(
+_ts_test = rule(
     attrs = {
         "config": attr.label(
             doc = "Optional jest configuration for the test.",
@@ -99,3 +99,22 @@ ts_test = rule(
     test = True,
     implementation = _ts_test_impl,
 )
+
+
+def ts_test(name, src, deps = []):
+    """Creates a ts project with format and linting tests.
+
+    Args:
+        name: The name of the ts lib.
+        src: Label of sources.
+        deps: deps if any for the ts lib.
+    """
+    deps_with_types = list()
+    for dep in deps:
+        deps_with_types.append(dep)
+        deps_with_types.append(dep + "_types")
+    _ts_test(
+        name = name,
+        src = src,
+        deps = deps_with_types,
+    )

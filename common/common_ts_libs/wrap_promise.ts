@@ -18,7 +18,8 @@ export async function WrapPromise<TInput>(
                 let outputError: StatusError;
                 if (e instanceof ErrImpl) {
                     if (e.val instanceof StatusError) {
-                        return e;
+                        resolve(e);
+                        return;
                     }
                     outputError = new StatusError(ErrorCode.UNKNOWN, textForUnknown);
                     outputError.setPayload("original_error", e.val);

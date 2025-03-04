@@ -17,10 +17,12 @@ def ts_lib(name, srcs, deps = [], non_ts_lib_deps = []):
     eslint_name = name + "_eslint_test"
     format_name = name + "_format_test"
 
+    file_group_of_types = list()
     deps_with_types = list()
     for dep in deps:
         deps_with_types.append(dep)
         deps_with_types.append(dep + "_types")
+        file_group_of_types.append(dep + "_types")
     ts_project(
         name = name,
         srcs = srcs,
@@ -30,6 +32,12 @@ def ts_lib(name, srcs, deps = [], non_ts_lib_deps = []):
         # transpiler = swc,
         deps = deps_with_types + non_ts_lib_deps,
         tsconfig = Label("//:tsconfig"),
+    )
+    file_group_of_types.append(name + "_types")
+    all_types_name = name + "_all_types"
+    native.filegroup(
+        name = all_types_name,
+        srcs = file_group_of_types,
     )
     eslint_test(
         name =  eslint_name,

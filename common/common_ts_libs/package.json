@@ -1,0 +1,24 @@
+{
+  "name": "@parra_labs/common_ts_libs",
+  "version": "1.0.0",
+  "description": "Common TS libs I use in different projects",
+  "main": "./dist/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parrajustin/mono-core.git"
+  },
+  "author": "Justin Parra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/parrajustin/mono-core/issues"
+  },
+  "homepage": "https://github.com/parrajustin/mono-core/blob/main/common/common_ts_libs/README.md"
+}

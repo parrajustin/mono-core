@@ -1,6 +1,7 @@
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
 load("//tools/typescript:ts_lib.bzl", "ts_lib")
 load("//tools/typescript:ts_test.bzl", "ts_test")
-load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -23,6 +24,9 @@ ts_lib(
 ts_lib(
     name = "common_ts_libs",
     srcs = ["index.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/tslib",
+    ],
     deps = [
         ":async",
         ":equality",
@@ -34,16 +38,12 @@ ts_lib(
         ":wrap_promise",
         ":wrap_to_result",
     ],
-    non_ts_lib_deps = [
-        "//:node_modules/tslib",
-    ],
 )
 
 ts_lib(
     name = "optional",
     srcs = ["optional.ts"],
 )
-
 
 ts_lib(
     name = "result",
@@ -74,8 +74,8 @@ ts_lib(
     srcs = ["wrap_promise.ts"],
     deps = [
         ":result",
-        ":utils",
         ":status_error",
+        ":utils",
     ],
 )
 
@@ -84,8 +84,8 @@ ts_lib(
     srcs = ["wrap_to_result.ts"],
     deps = [
         ":result",
-        ":utils",
         ":status_error",
+        ":utils",
     ],
 )
 
@@ -94,30 +94,55 @@ ts_test(
     src = "optional.test.ts",
     deps = [
         ":optional",
-    ]
+    ],
 )
 
 ts_test(
     name = "wrap_to_result_test",
     src = "wrap_to_result.test.ts",
     deps = [
-        ":wrap_to_result",
         ":status_error",
-    ]
+        ":wrap_to_result",
+    ],
 )
 
-# Package for npm
+###################
+# Package for npm #
+###################
+
+exports_files(
+    glob([
+        "*.d.ts",
+    ]),
+)
+
 esbuild(
-    name = "common_ts_libs_package",
+    name = "dist",
     srcs = ["index.js"],
-    entry_points = ["index.js"],
-    deps = [":common_ts_libs"],
-    splitting = False,
+    bazel_sandbox_plugin = True,
+    bundle = True,
     config = {
         "format": "cjs",
         "target": "es2020",
         "logLevel": "info",
         "minify": True,
-        "bundle": True,
-    }
+    },
+    entry_points = ["index.js"],
+    sourcemap = "external",
+    splitting = False,
+    deps = [":common_ts_libs"],
+)
+
+filegroup(
+    name = "common_ts_libs_npm_files",
+    srcs = ["package.json", "README.md",],
+)
+
+pkg_tar(
+    name = "common_ts_libs_npm_tar",
+    srcs = [
+        ":dist",
+        ":common_ts_libs_all_types",
+        ":common_ts_libs_npm_files",
+    ],
 )

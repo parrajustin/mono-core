@@ -2,9 +2,14 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import prettier from "prettier";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const config = tseslint.config({
-    files: ["**/*.ts"],
+    files: ["common/**/*.ts", "tools/**/*\.ts"],
     extends: [
         eslint.configs.recommended,
         ...tseslint.configs.recommended,
@@ -12,12 +17,18 @@ const config = tseslint.config({
         ...tseslint.configs.strictTypeChecked,
         ...tseslint.configs.stylisticTypeChecked
     ],
-    ignores: ["dist/*", "coverage/*"],
+    ignores: [
+        "dist/*",
+        "coverage/*",
+        "eslint.config.mjs",
+        "third_party/*",
+        "**/*.js"
+    ],
     // This is required, see the docs
     languageOptions: {
         parserOptions: {
             project: true,
-            tsconfigRootDir: import.meta.dirname // or import.meta.dirname for ESM
+            tsconfigRootDir: __dirname // or import.meta.dirname for ESM
         }
     },
     rules: {

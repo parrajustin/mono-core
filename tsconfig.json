@@ -30,13 +30,11 @@
         "noUnusedParameters": true // Report errors on unused parameters in functions
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "third_party",
     ],
     "include": [
-        "third_party/**/*",
-        "common/**/*",
-        "*.ts",
-        "/**/*.ts",
-        "**/*.ts",
+        "./common/**/*.ts",
+        "./tools/**/*.ts",
     ]
 }

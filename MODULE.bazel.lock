@@ -1628,7 +1628,7 @@
     "@@rules_python~//python/extensions:python.bzl%python": {
       "general": {
         "bzlTransitiveDigest": "8xJ0jM3WgMi72Jm08RQVHV/jw+3x+XgcEcvyyIE8pVM=",
-        "usagesDigest": "dHnFrvBBvM+G1hgwCdIGusW//ywjockIJAwgVmy1tEc=",
+        "usagesDigest": "QspTOp7XdGdS15Zg8qTgeh+8ZqJ4EVF8JorPRZAhvjA=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1648,7 +1648,7 @@
               "distutils_content": "",
               "strip_prefix": "python",
               "coverage_tool": "",
-              "ignore_root_user_error": false
+              "ignore_root_user_error": true
             }
           },
           "python_3_9_aarch64-unknown-linux-gnu": {
@@ -1666,7 +1666,7 @@
               "distutils_content": "",
               "strip_prefix": "python",
               "coverage_tool": "",
-              "ignore_root_user_error": false
+              "ignore_root_user_error": true
             }
           },
           "python_3_9_ppc64le-unknown-linux-gnu": {
@@ -1684,7 +1684,7 @@
               "distutils_content": "",
               "strip_prefix": "python",
               "coverage_tool": "",
-              "ignore_root_user_error": false
+              "ignore_root_user_error": true
             }
           },
           "python_3_9_s390x-unknown-linux-gnu": {
@@ -1702,7 +1702,7 @@
               "distutils_content": "",
               "strip_prefix": "python",
               "coverage_tool": "",
-              "ignore_root_user_error": false
+              "ignore_root_user_error": true
             }
           },
           "python_3_9_x86_64-apple-darwin": {
@@ -1720,7 +1720,7 @@
               "distutils_content": "",
               "strip_prefix": "python",
               "coverage_tool": "",
-              "ignore_root_user_error": false
+              "ignore_root_user_error": true
             }
           },
           "python_3_9_x86_64-pc-windows-msvc": {
@@ -1738,7 +1738,7 @@
               "distutils_content": "",
               "strip_prefix": "python",
               "coverage_tool": "",
-              "ignore_root_user_error": false
+              "ignore_root_user_error": true
             }
           },
           "python_3_9_x86_64-unknown-linux-gnu": {
@@ -1756,7 +1756,7 @@
               "distutils_content": "",
               "strip_prefix": "python",
               "coverage_tool": "",
-              "ignore_root_user_error": false
+              "ignore_root_user_error": true
             }
           },
           "python_3_9": {

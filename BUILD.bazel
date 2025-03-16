@@ -38,11 +38,20 @@ exports_files(
 )
 
 js_library(
+    name = "prettierrc",
+    srcs = [".prettierrc.json"],
+    deps = [":node_modules/prettier-plugin-sql"],
+)
+
+js_library(
     name = "eslintrc",
     srcs = ["eslint.config.mjs"],
     deps = [
+        ":prettierrc",
         ":node_modules/@eslint/js",
         ":node_modules/typescript-eslint",
+        ":node_modules/eslint-plugin-prettier",
+        ":node_modules/prettier",
     ],
 )
 
@@ -50,12 +59,6 @@ js_library(
     name = "stylelintrc",
     srcs = ["stylelint.config.mjs"],
     deps = [":node_modules/stylelint-config-standard"],
-)
-
-js_library(
-    name = "prettierrc",
-    srcs = [".prettierrc.json"],
-    deps = [":node_modules/prettier-plugin-sql"],
 )
 
 # NB: this alias does NOT cause Bazel's Loading phase to load the tools/BUILD file.

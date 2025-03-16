@@ -8,7 +8,7 @@ import { ErrorCode, StatusError } from "./status_error";
  * @param func function that may throw an error
  * @param textForUnknown Text for when an unknown error comes up.
  * @param mutators Makes changes to the error.
- * @returns 
+ * @returns
  */
 export function WrapToResult<T>(
     func: () => T,

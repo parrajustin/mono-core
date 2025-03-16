@@ -10,16 +10,6 @@
 # npm
 node_modules
 
-# build
-main.js
-main.test.js
-*.js.map
-
-# Obsidian
-data.json
-.hotreload
-resources/
-
 # Other
 RESOURCES.md
 

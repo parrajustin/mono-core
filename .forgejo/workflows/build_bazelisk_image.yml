@@ -3,19 +3,18 @@ jobs:
   docker:
     runs-on: docker
     container:
-      image: docker:28.0.2-cli
+      image: node:20-bookworm@sha256:c7fd844945a76eeaa83cb372e4d289b4a30b478a1c80e16c685b62c54156285b
     steps:
-      - name: Install node
-        run: |
-          apk add --update nodejs npm
+      - name: Set up node
+        uses: https://code.forgejo.org/actions/setup-node@v4
+        with:
+          node-version: '22.x'
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Set up node
-      #   uses: https://code.forgejo.org/actions/setup-node@v4
-      #   with:
-      #     node-version: '22.x'
+      - name: Install Docker
+        run: curl -fsSL https://get.docker.com | sh
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -35,4 +34,3 @@ jobs:
       - name: Push container
         run: |
           docker push forgejo.parrajustin.com/jrparra/bazelisk:latest
-          

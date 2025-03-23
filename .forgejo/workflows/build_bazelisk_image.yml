@@ -5,12 +5,12 @@ jobs:
     container:
       image: docker:28.0.2-cli
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Install node
         run: |
           apk add --update nodejs npm
+
+      - name: Checkout
+        uses: actions/checkout@v4
 
       # - name: Set up node
       #   uses: https://code.forgejo.org/actions/setup-node@v4

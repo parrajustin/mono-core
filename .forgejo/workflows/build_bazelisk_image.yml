@@ -1,0 +1,32 @@
+on: [push]
+jobs:
+  docker:
+    runs-on: docker
+    container:
+      image: node:22.14.0-bookworm@sha256:c7fd844945a76eeaa83cb372e4d289b4a30b478a1c80e16c685b62c54156285b
+    steps:
+      - name: Set up node
+        uses: https://code.forgejo.org/actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Docker
+        run: curl -fsSL https://get.docker.com | sh
+        
+      - name: Login local repo
+        uses: docker/login-action@v3
+        with:
+          username: xerofuzzion
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build
+        run: |
+          cd docker
+          docker build -t xerofuzzion/bazelisk:latest -f ./bazelisk.Dockerfile .
+
+      - name: Push container
+        run: |
+          docker push xerofuzzion/bazelisk:latest

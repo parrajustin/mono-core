@@ -1,12 +1,23 @@
 load("@gazelle//:def.bzl", "gazelle")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(default_visibility = ["//visibility:public"])
 
+# gazelle:prefix github.com/parrajustin/mono-core/sub_project/buf_generate
 gazelle(name = "gazelle")
 
-exports_files(
-    [
-        "go.mod",
+go_binary(
+    name = "buf_generate",
+    embed = [":buf_generate_lib"],
+)
+
+go_library(
+    name = "buf_generate_lib",
+    srcs = ["buf_generate.go"],
+    importpath = "github.com/parrajustin/mono-core/sub_project/buf_generate",
+    deps = [
+        "@com_github_bufbuild_protocompile//parser",
+        "@com_github_bufbuild_protocompile//reporter",
+        "@org_golang_google_protobuf//proto",
     ],
-    visibility = ["//visibility:public"],
 )

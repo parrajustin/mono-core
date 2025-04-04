@@ -22,7 +22,9 @@ var logger = log.New(
 )
 
 func main() {
-	var filePath = flag.String("path", "", "The path to the proto file to compile")
+	var filePath = flag.String("path", "", "The path to the proto file to compile.")
+	var outDir = flag.String("outDir", "", "The directory for the output .bin file.")
+	var outName = flag.String("name", "", "The name of the output .bin file.")
 	flag.Parse()
 
 	if *filePath == "" {
@@ -57,7 +59,13 @@ func main() {
 	}
 
 	dirOfFile := filepath.Dir(*filePath)
+	if *outDir != "" {
+		dirOfFile = *outDir
+	}
 	nameWithoutExt := strings.Split(fileName, ".")[0]
+	if *outName != "" {
+		nameWithoutExt = *outName
+	}
 	outputFile := path.Join(dirOfFile, fmt.Sprintf("%s.bin", nameWithoutExt))
 	// Write the binary data to the file.
 	err = os.WriteFile(outputFile, byteData, 0644) // 0644 file permissions

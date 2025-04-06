@@ -1,8 +1,8 @@
-load("//:defs.bzl", "proto_library")
+load("//build/tools/buf_generate:defs.bzl", "proto_library")
 
 package(default_visibility = ["//visibility:private"])
 
 proto_library(
     name = "timestamp_proto",
-    src = "timestamp.proto"
+    src = "timestamp.proto",
 )

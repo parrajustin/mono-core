@@ -1,5 +1,12 @@
 "Generates a FileDescriptorProto .bin file for Protobuffers"
 
+ProtoDescriptorInfo = provider(
+    "Provides proto library information specifically the File Descriptors.",
+    fields = {
+        "descriptor": "depset of the individual descriptors.",
+    },
+)
+
 def _proto_library_impl(ctx):
     inputs = depset([ctx.file.src])
     output_bin = ctx.actions.declare_file(ctx.outputs.bin.basename, sibling = ctx.file.src)
@@ -13,7 +20,7 @@ def _proto_library_impl(ctx):
         progress_message = "Generating proto .bin from %{label}",
         outputs = [output_bin],
         inputs = inputs,
-        mnemonic = "ProtocGenEs",
+        mnemonic = "BufProtoGenES",
         arguments = [args],
         env = {"BAZEL_BINDIR": ctx.bin_dir.path},
         use_default_shell_env = True
@@ -22,6 +29,9 @@ def _proto_library_impl(ctx):
     return [
         DefaultInfo(
             files = depset([output_bin])
+        ),
+        ProtoDescriptorInfo(
+            descriptor = output_bin
         )
     ]
 
@@ -37,11 +47,12 @@ proto_library = rule(
             allow_files = True,
             cfg = "target",
             executable = True,
-            default = Label("//:buf_generate"),
+            default = Label("//build/tools/buf_generate"),
         )
     }),
     doc = "Generate a proto FileDescriptorFile .bin file.",
     outputs = {
         "bin": "%{name}.bin",
-    }
+    },
+    provides = [ProtoDescriptorInfo]
 )

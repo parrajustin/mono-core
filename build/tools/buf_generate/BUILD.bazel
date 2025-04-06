@@ -1,10 +1,6 @@
-load("@gazelle//:def.bzl", "gazelle")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 package(default_visibility = ["//visibility:public"])
-
-# gazelle:prefix github.com/parrajustin/mono-core/sub_project/buf_generate
-gazelle(name = "gazelle")
 
 go_binary(
     name = "buf_generate",

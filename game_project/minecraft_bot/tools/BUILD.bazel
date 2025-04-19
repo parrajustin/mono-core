@@ -1,0 +1,104 @@
+load("//tools/typescript:ts_lib.bzl", "ts_lib")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_lib(
+    name = "find_player",
+    srcs = ["find_player.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/mineflayer",
+        "//:node_modules/vec3",
+    ],
+    deps = [
+        ":tool",
+        "//common/common_ts_libs:optional",
+        "//common/common_ts_libs:result",
+        "//common/common_ts_libs:status_error",
+        "//common/common_ts_libs:wrap_promise",
+        "//common/common_ts_libs:wrap_to_result",
+    ],
+)
+
+ts_lib(
+    name = "chat",
+    srcs = ["chat.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/mineflayer",
+        "//:node_modules/vec3",
+    ],
+    deps = [
+        ":tool",
+        "//common/common_ts_libs:optional",
+        "//common/common_ts_libs:result",
+        "//common/common_ts_libs:status_error",
+    ],
+)
+
+ts_lib(
+    name = "clear_and_flatten_area",
+    srcs = ["clear_and_flatten_area.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/mineflayer-pathfinder",
+        "//:node_modules/mineflayer",
+        "//:node_modules/vec3",
+    ],
+    deps = [
+        ":tool",
+        "//common/common_ts_libs:optional",
+        "//common/common_ts_libs:result",
+        "//common/common_ts_libs:wrap_promise",
+        "//common/common_ts_libs:status_error",
+    ],
+)
+
+ts_lib(
+    name = "collect_block",
+    srcs = ["collect_block.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/mineflayer-pathfinder",
+        "//:node_modules/mineflayer",
+        "//:node_modules/vec3",
+    ],
+    deps = [
+        ":tool",
+        "//common/common_ts_libs:optional",
+        "//common/common_ts_libs:result",
+        "//common/common_ts_libs:wrap_promise",
+        "//common/common_ts_libs:status_error",
+    ],
+)
+
+ts_lib(
+    name = "goto_user",
+    srcs = ["goto_user.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/mineflayer-pathfinder",
+        "//:node_modules/mineflayer",
+        "//:node_modules/vec3",
+    ],
+    deps = [
+        ":tool",
+        "//common/common_ts_libs:optional",
+        "//common/common_ts_libs:result",
+        "//common/common_ts_libs:wrap_promise",
+        "//common/common_ts_libs:status_error",
+    ],
+)
+
+ts_lib(
+    name = "tool",
+    srcs = ["tool.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/ollama",
+        "//:node_modules/mineflayer",
+    ],
+    deps = [
+        "//common/common_ts_libs:result",
+        "//common/common_ts_libs:status_error",
+    ],
+)

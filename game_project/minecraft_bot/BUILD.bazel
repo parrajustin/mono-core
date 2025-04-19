@@ -1,0 +1,64 @@
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("//tools/typescript:ts_lib.bzl", "ts_lib")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_lib(
+    name = "bot",
+    srcs = ["bot.ts"],
+    non_ts_lib_deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/mineflayer",
+        "//:node_modules/mineflayer-pathfinder",
+        "//:node_modules/prismarine-viewer",
+        "//:node_modules/debug",
+        "//:node_modules/encoding",
+        "//:node_modules/supports-color",
+        "//:node_modules/uuid-1345",
+        "//:node_modules/ollama",
+        "//:node_modules/three",
+        "//:node_modules/canvas",
+        "//:node_modules/utf-8-validate",
+        "//:node_modules/bufferutil",
+    ],
+    deps = [
+        "//common/common_ts_libs:optional",
+        "//common/common_ts_libs:result",
+        "//common/common_ts_libs:status_error",
+        "//common/common_ts_libs:wrap_promise",
+        "//common/common_ts_libs:wrap_to_result",
+        "//game_project/minecraft_bot/tools:find_player",
+        "//game_project/minecraft_bot/tools:chat",
+        "//game_project/minecraft_bot/tools:clear_and_flatten_area",
+        "//game_project/minecraft_bot/tools:collect_block",
+        "//game_project/minecraft_bot/tools:goto_user",
+    ],
+)
+
+esbuild(
+    name = "bot_esbuild",
+    srcs = ["bot.js"],
+    bazel_sandbox_plugin = True,
+    bundle = True,
+    config = {
+        "format": "cjs",
+        "target": "es2020",
+        "logLevel": "info",
+        "minify": False,
+        "platform": "node",
+    },
+    entry_points = ["bot.js"],
+    sourcemap = "external",
+    splitting = False,
+    deps = [
+        ":bot",
+        "//:node_modules/tslib",
+    ],
+)
+
+# # A simple program that runs the Acorn JS parser to produce an AST
+# js_binary(
+#     name = "bot_binary",
+#     data = [":bot_esbuild"],
+# )

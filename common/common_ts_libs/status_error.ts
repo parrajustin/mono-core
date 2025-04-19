@@ -64,12 +64,13 @@ export class StatusError {
         return this;
     }
 
-    public toString(): string {
+    public toString(includeStack = true): string {
         const data: string[] = [];
         for (const entry of this._additionalData.entries()) {
             data.push(`${entry[0]}: ${entry[1]}`);
         }
-        return `[${new Date().toISOString()}] ${ErrorCode[this.errorCode]}: ${this.message} at stack:\n${this._stack}${data.length > 0 ? `\n\n[Additional Data:]\n ${data.join("\n")}` : ""}`;
+        const stackMessage = includeStack ? `at stack:\n${this._stack}` : "";
+        return `[${new Date().toISOString()}] ${ErrorCode[this.errorCode]}: ${this.message} ${stackMessage}${data.length > 0 ? `\n\n[Additional Data:]\n ${data.join("\n")}` : ""}`;
     }
 
     public with(func: (error: StatusError) => void): this {
